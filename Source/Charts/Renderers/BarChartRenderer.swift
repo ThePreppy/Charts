@@ -11,10 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if canImport(UIKit)
-    import UIKit
-#endif
+import UIKit
 
 #if canImport(Cocoa)
 import Cocoa
@@ -328,6 +325,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         guard let dataProvider = dataProvider else { return }
 
         let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
+        
 
         prepareBuffer(dataSet: dataSet, index: index)
         trans.rectValuesToPixel(&_buffers[index].rects)
@@ -396,7 +394,12 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 }
                 
                 context.setFillColor(dataSet.barShadowColor.cgColor)
-                context.fill(barRect)
+                
+                let bezierPath = UIBezierPath(roundedRect: barRect,
+                                              byRoundingCorners: [.topLeft, .topRight],
+                                              cornerRadii: CGSize(width: 7, height: 7))
+                context.addPath(bezierPath.cgPath)
+                context.drawPath(using: .fill)
             }
         }
         
@@ -811,7 +814,12 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 
                 setHighlightDrawPos(highlight: high, barRect: barRect)
                 
-                context.fill(barRect)
+                let bezierPath = UIBezierPath(roundedRect: barRect,
+                                              byRoundingCorners: [.topLeft, .topRight],
+                                              cornerRadii: CGSize(width: 7, height: 7))
+                context.addPath(bezierPath.cgPath)
+                context.drawPath(using: .fill)
+//                context.fill(barRect)
             }
         }
         
