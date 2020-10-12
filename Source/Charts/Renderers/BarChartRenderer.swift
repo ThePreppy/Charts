@@ -431,7 +431,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             }
             
             var corners: UIRectCorner = []
-            let entry = dataSet.entryForIndex(index)
+            let entry = dataSet.entryForIndex(j)
             if (entry?.y ?? 0) > 0 {
                 corners = [.topLeft, .topRight]
             } else if (entry?.y ?? 0) < 0 {
