@@ -823,7 +823,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 setHighlightDrawPos(highlight: high, barRect: barRect)
                 
                 var corners: UIRectCorner = []
-                let entry = dataSet.entryForIndex(index)
+                let entry = barData.entryForHighlight(high)
                 if (entry?.y ?? 0) > 0 {
                     corners = [.topLeft, .topRight]
                 } else if (entry?.y ?? 0) < 0 {
